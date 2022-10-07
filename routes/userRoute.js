@@ -20,6 +20,10 @@ router.post("/register", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     req.body.password = hashedPassword;
+    const phonenumber = req.body.phonenumber;
+    console.log(phonenumber)
+    const empClass = req.body.empClass;
+    console.log(empClass)
     const newuser = new User(req.body);
     await newuser.save();
     res
@@ -185,8 +189,9 @@ router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
 router.post("/book-appointment", authMiddleware, async (req, res) => {
   try {
     req.body.status = "pending";
-    req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
-    req.body.time = moment(req.body.time, "HH:mm").toISOString();
+    req.body.fromDate = moment(req.body.fromDate, "DD-MM-YYYY").toISOString();
+    req.body.toDate = moment(req.body.toDate, "DD-MM-YYYY").toISOString();
+    
     const newAppointment = new Appointment(req.body);
     await newAppointment.save();
     //pushing notification to doctor based on his userid

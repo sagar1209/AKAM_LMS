@@ -14,6 +14,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phonenumber: {
+      type: String,
+      require: true,
+    },
+    empClass:{
+      type: String,
+      required: true,
+      
+    },
     isDoctor: {
       type: Boolean,
       default: false,

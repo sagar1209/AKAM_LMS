@@ -9,12 +9,21 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import DoctorForm from "../components/DoctorForm";
 import moment from "moment";
 
+
 function BookAppointment() {
   const [isAvailable, setIsAvailable] = useState(false);
   const navigate = useNavigate();
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
+  const [fromDate, setfromDate] = useState();
+  const [toDate, settoDate] = useState();
+  const [data, setData] = useState("");
+  
+  // const fun = (event) => {
+  //   setData(document.getElementById('reason').innerHTML);
+  //   console.log(data);
+  // }
+
   const { user } = useSelector((state) => state.user);
+  
   const [doctor, setDoctor] = useState(null);
   const params = useParams();
   const dispatch = useDispatch();
@@ -43,35 +52,19 @@ function BookAppointment() {
       dispatch(hideLoading());
     }
   };
-  const checkAvailability = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.post(
-        "/api/user/check-booking-avilability",
-        {
-          doctorId: params.doctorId,
-          date: date,
-          time: time,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        toast.success(response.data.message);
-        setIsAvailable(true);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Error booking appointment");
-      dispatch(hideLoading());
-    }
-  };
-  const bookNow = async () => {
+
+  const v = (e) => {
+    setData(e.target.value);
+  }
+  const bookNow = async (e) => {
+    // e.preventDefault();
+
+    // var d = document.getElementById('reason').value;
+    // console.log(d);
+    // setData(d);
+    // console.log(data);
+
+    
     setIsAvailable(false);
     try {
       dispatch(showLoading());
@@ -82,26 +75,29 @@ function BookAppointment() {
           userId: user._id,
           doctorInfo: doctor,
           userInfo: user,
-          date: date,
-          time: time,
+          fromDate: fromDate,
+          toDate: toDate,
+          // time: time,
+          reason : data,
         },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
-      );
-
-      dispatch(hideLoading());
-      if (response.data.success) {
+        );
         
+        dispatch(hideLoading());
+        if (response.data.success) {
+          
         toast.success(response.data.message);
-        navigate('/appointments')
+        // navigate('/appointments')
       }
     } catch (error) {
       toast.error("Error Apply Leave");
       dispatch(hideLoading());
     }
+    // console.log(data);
   };
 
   // const [toDate, setToDate]= useState("")
@@ -118,41 +114,16 @@ function BookAppointment() {
           <hr />
           <Row gutter={20} className="mt-5" align="middle">
 
-            {/* <Col span={8} sm={24} xs={24} lg={8}>
-              <img
-                src="https://icon2.cleanpng.com/20180615/kj/kisspng-royalty-free-loan-bank-apply-now-5b2395ebda5067.1033547515290587958942.jpg"
-                alt=""
-                width="100%"
-                height='400'
-              />
-            </Col> */}
+         
             <Col span={8} sm={24} xs={24} lg={15}>
-              {/* <h1 className="normal-text">
-                <b>Timings :</b> {doctor.timings[0]} - {doctor.timings[1]}
-              </h1>
-              <p>
-                <b>Phone Number : </b>
-                {doctor.phoneNumber}
-              </p>
-              <p>
-                <b>Address : </b>
-                {doctor.address}
-              </p>
-              <p>
-                <b>Fee per Visit : </b>
-                {doctor.feePerCunsultation}
-              </p>
-              <p>
-                <b>Website : </b>
-                {doctor.website}
-              </p> */}
+            
 
               <div className="d-flex flex-column pt-2 mt-2 mx-5 w-100">
                 <h6>From</h6>
                 <DatePicker className="mb-4"
                   format="DD-MM-YYYY"
                   onChange={(value) => {
-                    setDate(moment(value).format("DD-MM-YYYY"));
+                    setfromDate(moment(value).format("DD-MM-YYYY"));
                     setIsAvailable(false);
                     // setToDate();
                   }}
@@ -161,27 +132,13 @@ function BookAppointment() {
                 <DatePicker className="mb-4"
                   format="DD-MM-YYYY"
                   onChange={(value) => {
-                    setDate(moment(value).format("DD-MM-YYYY"));
+                    settoDate(moment(value).format("DD-MM-YYYY"));
                     setIsAvailable(false);
                   }}
                 />
                 <h6>Reason for Leave</h6>
-                <textarea name="" id="" cols="30" rows="10" placeholder="Type here"></textarea>
-                {/* <TimePicker
-                  format="HH:mm"
-                  className="mt-3"
-                  onChange={(value) => {
-                    setIsAvailable(false);
-                    setTime(moment(value).format("HH:mm"));
-                  }}
-                /> */}
-              {/* {!isAvailable &&   <Button
-                  className="primary-button mt-3 full-width-button"
-                  onClick={checkAvailability}
-                >
-                  Check Availability
-                </Button>} */}
-
+                <textarea name="reason" id="reason" cols="30" rows="10" placeholder="Type here" onChange={v}></textarea>
+                {/* <p>{data}</p> */}
                 {!isAvailable && (
                   <Button
                     className="primary-button mt-3 full-width-button"

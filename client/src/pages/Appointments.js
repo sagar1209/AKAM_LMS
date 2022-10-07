@@ -50,11 +50,11 @@ function Appointments() {
       ),
     },
     {
-      title: "Duration",
+      title: "From - To",
       dataIndex: "createdAt",
       render: (text, record) => (
         <span>
-          {moment(record.date).format("DD-MM-YYYY")} {moment(record.time).format("HH:mm")}
+          {moment(record.fromDate).format("DD-MM-YYYY")} | {moment(record.toDate).format("DD-MM-YYYY")}
         </span>
       ),
     },

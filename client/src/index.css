@@ -144,3 +144,10 @@ p{
 .container h4{
   margin: 40px;
 }
+
+.dd{
+  padding: 10px;
+  margin: 20px 0px;
+  /* transform: translateX(10%); */
+  width: 100%;
+}

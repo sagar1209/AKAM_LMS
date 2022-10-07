@@ -40,6 +40,18 @@ function Register() {
           <Form.Item label="Password" name="password">
             <Input placeholder="Password" type="password" />
           </Form.Item>
+          {/* <select className="dd" name="empClass">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select> */}
+          <Form.Item label="class" name="empClass">
+            <Input placeholder="class (1-4)" type="number" />
+          </Form.Item>
+          <Form.Item label="Phone" name="phonenumber">
+            <Input placeholder="Phone number" type="text" />
+          </Form.Item>
 
           <Button
             className="primary-button my-2 full-width-button"
