@@ -172,7 +172,7 @@ router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
   try {
     const doctors = await Doctor.find({ status: "approved" });
     res.status(200).send({
-      message: "Doctors fetched successfully",
+      message: "Managers fetched successfully",
       success: true,
       data: doctors,
     });
@@ -198,18 +198,18 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.body.doctorInfo.userId });
     user.unseenNotifications.push({
       type: "new-appointment-request",
-      message: `A new appointment request has been made by ${req.body.userInfo.name}`,
+      message: `A new Leave request has been made by ${req.body.userInfo.name}`,
       onClickPath: "/doctor/appointments",
     });
     await user.save();
     res.status(200).send({
-      message: "Appointment booked successfully",
+      message: "Leave requested successfully",
       success: true,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error booking appointment",
+      message: "Error requesting Leave",
       success: false,
       error,
     });
@@ -243,7 +243,7 @@ router.post("/check-booking-avilability", authMiddleware, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error booking appointment",
+      message: "Error reqesting Leave",
       success: false,
       error,
     });
@@ -254,14 +254,14 @@ router.get("/get-appointments-by-user-id", authMiddleware, async (req, res) => {
   try {
     const appointments = await Appointment.find({ userId: req.body.userId });
     res.status(200).send({
-      message: "Appointments fetched successfully",
+      message: "Leaves fetched successfully",
       success: true,
       data: appointments,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error fetching appointments",
+      message: "Error fetching Leaves",
       success: false,
       error,
     });

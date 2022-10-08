@@ -67,7 +67,10 @@ function Appointments() {
     getAppointmentsData();
   }, []);
   return  <Layout>
-  <h1 className="page-title">Appointments</h1>
+  <h1 className="page-title">Leaves
+  
+  
+  </h1>
   <hr />
   <Table columns={columns} dataSource={appointments} />
 </Layout>

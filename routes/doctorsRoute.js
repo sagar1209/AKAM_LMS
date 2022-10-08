@@ -61,14 +61,14 @@ router.get(
       const doctor = await Doctor.findOne({ userId: req.body.userId });
       const appointments = await Appointment.find({ doctorId: doctor._id });
       res.status(200).send({
-        message: "Appointments fetched successfully",
+        message: "Leaves fetched successfully",
         success: true,
         data: appointments,
       });
     } catch (error) {
       console.log(error);
       res.status(500).send({
-        message: "Error fetching appointments",
+        message: "Error fetching Leaves",
         success: false,
         error,
       });
@@ -87,20 +87,20 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
     const unseenNotifications = user.unseenNotifications;
     unseenNotifications.push({
       type: "appointment-status-changed",
-      message: `Your appointment status has been ${status}`,
+      message: `Your Leave status has been ${status}`,
       onClickPath: "/appointments",
     });
 
     await user.save();
 
     res.status(200).send({
-      message: "Appointment status updated successfully",
+      message: "Leave request updated",
       success: true
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error changing appointment status",
+      message: "Error changing Leave status",
       success: false,
       error,
     });

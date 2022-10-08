@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     empClass:{
       type: String,
-      required: true,
+      // required: true,
       
     },
     isDoctor: {

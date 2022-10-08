@@ -102,7 +102,7 @@ function DoctorsList() {
   ];
   return (
     <Layout>
-      <h1 className="page-header">Doctors List</h1>
+      <h1 className="page-header">Employee List</h1>
       <hr />
       <Table columns={columns} dataSource={doctors} />
     </Layout>

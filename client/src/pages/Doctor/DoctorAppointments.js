@@ -68,19 +68,19 @@ function DoctorAppointments() {
       render: (text, record) => <span>{record.doctorInfo.phoneNumber}</span>,
     },
     {
-      title: "duration",
+      title: "From - To",
       dataIndex: "createdAt",
       render: (text, record) => (
         <span>
-          {moment(record.date).format("DD-MM-YYYY")}{" "}
-          {moment(record.time).format("HH:mm")}
+          {moment(record.fromDate).format("DD-MM-YYYY")}{" | "}
+          {moment(record.toDate).format("DD-MM-YYYY")}
         </span>
       ),
     },
     {
-      title: "Reson",
-      dataIndex: "Reson",
-      render: (text, record) => <span>{record.doctorInfo.Reson}</span>,
+      title: "Reason",
+      dataIndex: "reason",
+      render: (text, record) =>  <span>{record.reason}</span>,
     },
 
     {
@@ -117,7 +117,7 @@ function DoctorAppointments() {
   }, []);
   return (
     <Layout>
-      <h1 className="page-header">Appointments</h1>
+      <h1 className="page-header">Leaves</h1>
       <hr />
       <Table columns={columns} dataSource={appointments} />
     </Layout>
